@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path:'/statistics',
-    Component:Statistics
+    component:Statistics
   }
  
 ]

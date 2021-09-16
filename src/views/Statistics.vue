@@ -1,12 +1,15 @@
 <template>
     <div>
         Statistics
+        <Nav/>
     </div>
 </template>
 
 <script lang="ts">
+
 export default({
-    
+
+  
 })
 </script>
 
