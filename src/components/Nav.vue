@@ -1,19 +1,34 @@
 <template>
-    <div>
-    <router-link to="/money">记账</router-link>
+    <div class="nav">
+    <router-link to="/money">
+    <svg>
+        <use xlink:href="#money"/>
+    </svg>
+    记账
+    </router-link>
     |
-    <router-link to="/labels">标签</router-link>
+    <router-link to="/labels">
+    <svg>
+        <use xlink:href="#label"/>
+    </svg>
+    标签</router-link>
     |
     <router-link to="/statistics">统计</router-link>
     </div>
 </template>
 
 <script lang="ts">
+import x from '@/assets/icons/label.svg'
+import y from '@/assets/icons/money.svg'
+console.log(x)
+console.log(y)
     export default {
         
     }
 </script>
-
+ 
 <style lang="scss" scoped>
-
+    .nav{
+        border: 1px solid red;
+    }
 </style>
