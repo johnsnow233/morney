@@ -1,34 +1,44 @@
+import Icon from '@/components/Icon.vue';
 <template>
-    <div class="nav">
-    <router-link to="/money">
-    <svg>
-        <use xlink:href="#money"/>
-    </svg>
+    <nav>
+    <router-link to="/money" class="item">
+    <Icon name="money"/>
     记账
     </router-link>
-    |
-    <router-link to="/labels">
-    <svg>
-        <use xlink:href="#label"/>
-    </svg>
+    
+    <router-link to="/labels" class="item">
+    <Icon name="label"/>
     标签</router-link>
-    |
-    <router-link to="/statistics">统计</router-link>
-    </div>
+    
+    <router-link to="/statistics" class="item">
+    <Icon name="statistics"/>
+    统计</router-link>
+
+    </nav>
 </template>
 
 <script lang="ts">
-import x from '@/assets/icons/label.svg'
-import y from '@/assets/icons/money.svg'
-console.log(x)
-console.log(y)
     export default {
         
     }
 </script>
  
 <style lang="scss" scoped>
-    .nav{
-        border: 1px solid red;
+    nav{
+        display: flex;
+        box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        flex-direction: row;
+        .item{
+            padding: 2px 0;
+            width: 33.33333%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .icon{
+                height: 32px;
+                width: 32px;
+            }
+        }
     }
 </style>
