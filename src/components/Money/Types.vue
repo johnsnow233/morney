@@ -1,19 +1,32 @@
 <template>
     <div>
       <ol class="types">
-        <li class="selected">支出</li>
-        <li >收入</li>
+        <li :class="type==='-' && 'selected'" @click="selectType('-')">支出</li>
+        <li :class="type==='+' && 'selected'" @click="selectType('+')">收入</li>
       </ol>
     </div>
 </template>
 
-<script lang='ts'>
+<script>
     export default {
-        
+        data() {
+          return{
+            type:'-'
+          }
+        },
+        methods: {
+          selectType(type){
+            if(type !== '-' && type !== '+'){
+            throw new errro('type is unknown')
+          }
+            this.type = type
+          }
+        }
     }
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/style/helper.scss';
 .types{
   background: #c4c4c4;
   display: flex;
