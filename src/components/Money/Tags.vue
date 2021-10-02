@@ -4,8 +4,8 @@
         <button @click="creat">新增标签</button>
       </div>
       <ol class="current">
-        <li v-for="tag in dataSource" :key='tag'
-        :class="{selected: selectedTags.indexOf(tag)>=0}"
+        <li v-for="(tag) in dataSource" :key='tag.index'
+            :class="{selected: selectedTags.indexOf(tag)>=0}"
             @click="select(tag)"
         >{{tag}}</li>
         
@@ -47,6 +47,7 @@ export default class Types extends Vue{
 <style lang="scss" scoped>
 @import '~@/assets/style/helper.scss';
 .tags{
+  background: white;
   font-size: 14px;
   padding: 16px;
   display: flex;
