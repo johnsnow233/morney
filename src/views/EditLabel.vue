@@ -53,7 +53,8 @@ export default class Labels extends Vue{
 
     }
     .right{
-
+        width: 24px;
+        height: 24px;
     }
 }
 .notes{
