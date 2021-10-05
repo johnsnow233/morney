@@ -1,9 +1,10 @@
 <template>
   <Layout class-prefix='layout'>
+    {{record}}
     <Number-Pad :value.sync='record.amount' @submit="saveRecordItem"/>
     <Types :value.sync="record.type" />
     <Notes fieldName="备注" placeholder="请输入备注" @update:value='onUpdataNotes'/>
-    <Tags :data-source.sync="tags" @updata:value='onUpdataTags'/>
+    <Tags :data-source.sync="tags" @update:value='onUpdataTags'/>
   </Layout>
 </template>
 
@@ -16,10 +17,7 @@ import Tags from '@/components/Money/Tags.vue';
 import { Component, Watch } from 'vue-property-decorator';
 
 
-import recordModel from '@/models/recordModel'
-import tagModel from '@/models/tagModel';
 
-const recordList = recordModel.fetch()
 
 
 
@@ -27,8 +25,8 @@ const recordList = recordModel.fetch()
    components: { NumberPad, Types, Notes ,Tags}
 })
 export default class Money extends Vue {
-   tags = tagModel.data
-   recordList:RecordItem[] = recordList
+   tags = window.tagList
+   recordList = window.recordList
    record: RecordItem = {
      tags:[], notes:'', type:'-', amount:0
    }
@@ -50,15 +48,9 @@ export default class Money extends Vue {
   }
   saveRecordItem(){
     //深拷贝
-    const record2:RecordItem = recordModel.clone(this.recordList)
-    record2.creatAt = new Date
-    this.recordList.push(record2)
-    console.log(this.recordList)
+    window.createRecord(this.record)
   }
-  @Watch('recordList')
-  onRecordItemListChanged(){
-    recordModel.save(this.recordList)
-  }
+ 
 
 }
 </script>

@@ -4,7 +4,7 @@
         <button @click="creat">新增标签</button>
       </div>
       <ol class="current">
-        <li v-for="(tag) in dataSource" :key='tag.index'
+        <li v-for="tag in dataSource" :key='tag.id'
             :class="{selected: selectedTags.indexOf(tag)>=0}"
             @click="select(tag)"
         >{{tag.name}}</li>
@@ -29,7 +29,7 @@ export default class Types extends Vue{
     }else{
       this.selectedTags.push(tag)
     }
-    this.$emit('updata:value',this.selectedTags)
+    this.$emit('update:value',this.selectedTags)
     
   }
   creat(){
