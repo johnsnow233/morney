@@ -16,6 +16,7 @@
 import Vue from 'vue';
 import Notes from '@/components/Money/Notes.vue';
 import { Component } from 'vue-property-decorator';
+import store from '@/store/index2';
 
 
 @Component({
@@ -26,7 +27,7 @@ export default class Labels extends Vue{
 
     created(){
        const id =  this.$route.params.id
-       const tag = window.findTag(id)
+       const tag = store.findTag(id)
        if(tag){
            this.tag = tag
        }else{
@@ -35,7 +36,7 @@ export default class Labels extends Vue{
     }
     update(name:string){
         if(this.tag){
-            window.updateTag(this.tag.id, name)
+            store.updateTag(this.tag.id, name)
         }else{
 
         }
@@ -43,7 +44,7 @@ export default class Labels extends Vue{
     }    
     remove(){
         if(this.tag){
-            if(window.removeTag(this.tag.id)){
+            if(store.removeTag(this.tag.id)){
             this.$router.back()
         }else{
             window.alert('删除失败')
