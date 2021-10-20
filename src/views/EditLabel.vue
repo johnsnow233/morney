@@ -5,7 +5,7 @@
             <span class="title">编辑标签</span>
             <span class="right"></span>
         </div>
-        <Notes class="notes" :value="tag.name" @update:value='update' fieldName="标签" placeholder="请输入标签" />
+        <Notes class="notes" :value="currentTag.name" @update:value='update' fieldName="标签" placeholder="请输入标签" />
         <div class="button-wrapper">
             <Button @click="remove">删除标签</Button>
         </div>
@@ -16,40 +16,31 @@
 import Vue from 'vue';
 import Notes from '@/components/Money/Notes.vue';
 import { Component } from 'vue-property-decorator';
-import store from '@/store/index2';
+
 
 
 @Component({
    components: { Notes }
 })
 export default class Labels extends Vue{
-    tag?:{id:string, name:string} = undefined
-
+    get currentTag(){
+        return this.$store.state.currentTag
+    }
     created(){
-       const id =  this.$route.params.id
-       const tag = store.findTag(id)
-       if(tag){
-           this.tag = tag
-       }else{
+       const id = this.$route.params.id
+       this.$store.commit('fetchTags')
+       this.$store.commit('setCurrentTag',id)
+       if(!this.currentTag){
            this.$router.replace('/404')
        }
     }
     update(name:string){
-        if(this.tag){
-            store.updateTag(this.tag.id, name)
-        }else{
-
-        }
-
+        this.$store.commit('updateTag',{id: this.currentTag.id, name})
     }    
     remove(){
-        if(this.tag){
-            if(store.removeTag(this.tag.id)){
-            this.$router.back()
-        }else{
-            window.alert('删除失败')
-        }
-    }
+       if(this.currentTag){
+           this.$store.commit('removeTag',this.currentTag.id)
+       }
         }
         
     goBack(){

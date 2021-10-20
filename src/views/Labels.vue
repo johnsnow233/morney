@@ -14,24 +14,18 @@ import Labels from '@/views/Labels.vue';
 </template>
 
 <script lang="ts">
-import store from '@/store/index2';
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-
-
-
+import TagHelper from '@/mixins/TagHelper';
+import { mixins } from 'vue-class-component';
 
 @Component
-export default class Labels extends Vue{
-
-    tags = store.tagList
-
-    createTag(){
-        const name = window.prompt('请输入标签名')
-        if(name){
-            store.createTag(name)
+export default class Labels extends mixins(TagHelper){
+    get tags(){
+            return this.$store.state.tagList
         }
-       
+    beforeCreated(){
+        this.$store.commit('fetchTags')
     }
    
 }
