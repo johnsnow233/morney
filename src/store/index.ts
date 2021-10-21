@@ -7,11 +7,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex) //把storr绑定到Vue.prototype.$store = store
 
-type RootState = {
-    recordList: RecordItem[],
-    tagList:Tag[],
-    currentTag?:Tag
-}
+
 
 const store =  new Vuex.Store({
   state: {
@@ -78,7 +74,7 @@ const store =  new Vuex.Store({
     },
     createRecord(state,record) {
       const record2: RecordItem = clone(record);
-      record2.creatAt = new Date();
+      record2.creatAt = new Date().toISOString();
       state.recordList.push(record2);
       store.commit('saveRecords')
 
