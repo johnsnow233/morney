@@ -9,7 +9,7 @@
 
     <ol>
       <li v-for="(group, index) in result" :key="index">
-        <h3 class="title">{{beautify(group.title)}}</h3>
+        <h3 class="title">{{beautify(group.title)}} <span>{{group.total}}</span></h3>
         <ol>
           <li v-for="item in group.items" :key="item.id" class="record">
             <span>{{ tagString(item.tags) }}</span>
@@ -26,7 +26,6 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Tabs from "@/components/Tabs.vue";
-import intervalList from "@/constants/intervalList";
 import recordTypeList from "@/constants/recordTypeList";
 import dayjs from 'dayjs'
 import clone from "@/lib/clone";
@@ -59,19 +58,26 @@ export default class Statistics extends Vue {
   }
   get result() {
     const { recordList } = this;
+    type GroupList = {title:string, total?:number, items:RecordItem[]}[]
     if(recordList.length===0){return []}
-    const newList = clone(recordList).sort((a,b)=> dayjs(b.creatAt).valueOf() - dayjs(a.creatAt).valueOf())
-    const groupList = [{title:dayjs(newList[0].creatAt).format('YYYY-MM-DD'), items:[newList[0]]}]
-    for(let i=0; i<newList.length;i++){
+    const newList = clone(recordList).filter(r=>r.type==this.type).sort((a,b)=> dayjs(b.creatAt).valueOf() - dayjs(a.creatAt).valueOf())
+    const groupList:GroupList = [{title:dayjs(newList[0].creatAt).format('YYYY-MM-DD'), items:[newList[0]]}]
+    for(let i=1; i<newList.length;i++){
         const current = newList[i]
         const last = groupList[groupList.length-1]
-        if(dayjs(last.title).isSame(dayjs(current.creatAt).format('YYYY-MM-DD'),'day')){
+        if(dayjs(last.title).isSame(dayjs(current.creatAt),'day')){
             last.items.push(current)
         }else{
             groupList.push({title:dayjs(current.creatAt).format('YYYY-MM-DD'), items:[current]})
         }
     }
-    
+    groupList.map(group => {
+        group.total = group.items.reduce((sum, item) => {
+          console.log(sum);
+          console.log(item);
+          return sum + item.amount;
+        }, 0);
+      });
 
     return groupList
   }

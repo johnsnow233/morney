@@ -2,11 +2,12 @@ type RecordItem = {
     tags: string[]
     notes: string
     type:string
-    amount: Number //数据类型
+    amount: number //数据类型
     creatAt?: string  //类 /构造函数
   }
   type RootState = {
     recordList: RecordItem[],
+    createTagError: Error | null,
     tagList:Tag[],
     currentTag?:Tag
 }
