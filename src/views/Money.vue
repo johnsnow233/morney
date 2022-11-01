@@ -7,7 +7,7 @@
       placeholder="请输入备注"
       @update:value="onUpdataNotes"
     />
-    <Tags />
+    <Tags :value.sync="record.tags"/>
   </Layout>
 </template>
 

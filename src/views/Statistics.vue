@@ -37,7 +37,10 @@ import clone from "@/lib/clone";
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? "无" : tags.join(",");
+    console.log('----------')
+    console.log(tags)
+    console.log('----------')
+    return tags.length === 0 ? "无" : tags[0].name;
   }
   beautify(string:string){
       const day = dayjs(string)
